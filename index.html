@@ -64,12 +64,11 @@ button {
 .no {
   background: #eee;
   color: #444;
-  position: absolute;
 }
 
 .hidden { display: none; }
 
-/* 🌸 VERY SOFT END SHAKE */
+/* Soft shake at the end */
 .soft-shake {
   animation: softShake 0.6s ease-in-out 1;
 }
@@ -98,20 +97,26 @@ button {
 <body>
 
 <div class="card" id="card">
+
   <h1>Hey My Choriyan 💖</h1>
   <p id="text">Enikk oru cheriya confession und 😌</p>
 
   <button class="yes" onclick="nextStep()">Tell me 🤍</button>
-  <button class="no" id="noBtn" onmouseover="runAway()">No 🙈</button>
 
   <div id="final" class="hidden">
     <h1>Will you be my Valentine? 🥺👉👈</h1>
     <button class="yes" onclick="sayYes()">YES 💖</button>
+    <button class="no" onclick="sayNo()">NO 🙃</button>
+  </div>
+
+  <div id="noReaction" class="hidden">
+    <p id="noText">Enthaa ith 😐</p>
+    <button class="no" onclick="moreNo()">Still NO 😤</button>
   </div>
 
   <div id="result" class="hidden">
     <h1>AYYO YES AA?! 😭💖</h1>
-    <p>Ummaaaaaaa di😵‍💫</p>
+    <p>Heart totally gone case… officially 😵‍💫</p>
 
     <iframe style="border-radius:12px"
       src="https://open.spotify.com/embed/track/4FeczSomVWVyU4FW7xDeAI"
@@ -123,7 +128,7 @@ button {
 
 <script>
 let step = 0;
-const noBtn = document.getElementById("noBtn");
+let noCount = 0;
 const card = document.getElementById("card");
 
 function nextStep() {
@@ -132,28 +137,43 @@ function nextStep() {
   if (step === 0) {
     text.innerText = "Nee chirikkumbo enikk brain hang aavum 😵‍💫";
     step++;
-  } 
-  else if (step === 1) {
+  } else if (step === 1) {
     text.innerText = "Nee illaatha day = full dull day 😔";
     step++;
-  } 
-  else {
+  } else {
     document.querySelector(".yes").style.display = "none";
-    noBtn.style.display = "none";
     document.getElementById("final").classList.remove("hidden");
   }
 }
 
-function runAway() {
-  noBtn.style.left = Math.random() * 70 + "vw";
-  noBtn.style.top = Math.random() * 70 + "vh";
+function sayNo() {
+  document.getElementById("final").classList.add("hidden");
+  document.getElementById("noReaction").classList.remove("hidden");
+  noCount = 1;
+}
+
+function moreNo() {
+  const noText = document.getElementById("noText");
+  noCount++;
+
+  if (noCount === 2) {
+    noText.innerText = "Ayyo serious aa? 😳";
+  } else if (noCount === 3) {
+    noText.innerText = "Enikk food kazhikkan mood poyi 🍕💔";
+  } else if (noCount === 4) {
+    noText.innerText = "Okay… last try 🥺 pls?";
+  } else {
+    noText.innerText = "Fine 😤 but YES button ivide thanne irikkum 💖";
+    document.getElementById("noReaction").innerHTML =
+      `<button class="yes" onclick="sayYes()">Okay YES 😌💖</button>`;
+  }
 }
 
 function sayYes() {
   document.getElementById("final").classList.add("hidden");
+  document.getElementById("noReaction").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
 
-  // 🌸 gentle shake only once
   card.classList.add("soft-shake");
   hearts();
 }
