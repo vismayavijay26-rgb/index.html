@@ -23,29 +23,18 @@ body {
 
 .card {
   background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(20px);
-  border-radius: 30px;
+  backdrop-filter: blur(18px);
+  border-radius: 28px;
   padding: 30px;
   width: 360px;
   text-align: center;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-  animation: pop 1s ease;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.15);
+  animation: fadeIn 1s ease;
 }
 
-@keyframes pop {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-img {
-  width: 140px;
-  margin-bottom: 10px;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 h1 {
@@ -55,6 +44,7 @@ h1 {
 
 p {
   color: #555;
+  font-size: 1.05rem;
 }
 
 button {
@@ -79,28 +69,15 @@ button {
 
 .hidden { display: none; }
 
-.shake {
-  animation: shake 0.4s;
+/* 🌸 VERY SOFT END SHAKE */
+.soft-shake {
+  animation: softShake 0.6s ease-in-out 1;
 }
 
-@keyframes shake {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(-5deg); }
-  75% { transform: rotate(5deg); }
-  100% { transform: rotate(0); }
-}
-
-/* CRAZY MODE */
-.crazy {
-  animation: crazy 0.15s infinite;
-}
-
-@keyframes crazy {
+@keyframes softShake {
   0% { transform: rotate(0deg); }
-  25% { transform: rotate(3deg); }
-  50% { transform: rotate(-3deg); }
-  75% { transform: rotate(3deg); }
+  30% { transform: rotate(1deg); }
+  60% { transform: rotate(-1deg); }
   100% { transform: rotate(0deg); }
 }
 
@@ -109,10 +86,10 @@ button {
   position: absolute;
   font-size: 22px;
   bottom: -20px;
-  animation: float 6s linear infinite;
+  animation: floatUp 6s linear infinite;
 }
 
-@keyframes float {
+@keyframes floatUp {
   to { transform: translateY(-120vh); opacity: 0; }
 }
 </style>
@@ -121,22 +98,20 @@ button {
 <body>
 
 <div class="card" id="card">
-  <img src="download (3).jpg" alt="cute guy">
-
   <h1>Hey My Choriyan 💖</h1>
   <p id="text">Enikk oru cheriya confession und 😌</p>
 
-  <button class="yes" onclick="next()">Tell me 🤍</button>
+  <button class="yes" onclick="nextStep()">Tell me 🤍</button>
   <button class="no" id="noBtn" onmouseover="runAway()">No 🙈</button>
 
   <div id="final" class="hidden">
     <h1>Will you be my Valentine? 🥺👉👈</h1>
-    <button class="yes" onclick="yes()">YES 💖</button>
+    <button class="yes" onclick="sayYes()">YES 💖</button>
   </div>
 
   <div id="result" class="hidden">
     <h1>AYYO YES AA?! 😭💖</h1>
-    <p>ummaaa di 😵‍💫</p>
+    <p>Ummaaaaaaa di😵‍💫</p>
 
     <iframe style="border-radius:12px"
       src="https://open.spotify.com/embed/track/4FeczSomVWVyU4FW7xDeAI"
@@ -151,7 +126,7 @@ let step = 0;
 const noBtn = document.getElementById("noBtn");
 const card = document.getElementById("card");
 
-function next() {
+function nextStep() {
   const text = document.getElementById("text");
 
   if (step === 0) {
@@ -159,7 +134,7 @@ function next() {
     step++;
   } 
   else if (step === 1) {
-    text.innerText = "Nee illaatha day = very dull day 😔";
+    text.innerText = "Nee illaatha day = full dull day 😔";
     step++;
   } 
   else {
@@ -170,32 +145,32 @@ function next() {
 }
 
 function runAway() {
-  noBtn.style.left = Math.random()*70 + "vw";
-  noBtn.style.top = Math.random()*70 + "vh";
-  card.classList.add("shake");
-
-  setTimeout(()=>card.classList.remove("shake"),300);
+  noBtn.style.left = Math.random() * 70 + "vw";
+  noBtn.style.top = Math.random() * 70 + "vh";
 }
 
-function yes() {
+function sayYes() {
   document.getElementById("final").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
-  card.classList.add("crazy");
+
+  // 🌸 gentle shake only once
+  card.classList.add("soft-shake");
   hearts();
 }
 
 function hearts() {
-  for(let i=0;i<40;i++){
-    const h=document.createElement("div");
-    h.className="heart";
-    h.innerHTML="💗";
-    h.style.left=Math.random()*100+"vw";
-    h.style.animationDuration=(4+Math.random()*3)+"s";
+  for (let i = 0; i < 30; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💗";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = (5 + Math.random() * 3) + "s";
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(),8000);
+    setTimeout(() => h.remove(), 8000);
   }
 }
 </script>
 
 </body>
 </html>
+
