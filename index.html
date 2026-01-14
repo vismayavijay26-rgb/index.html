@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hey My Choriyan 💖</title>
 
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -28,28 +28,30 @@ body {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(18px);
   border-radius: 28px;
-  padding: 35px 28px;
-  width: 340px;
+  padding: 40px 30px;
+  width: 360px;
   text-align: center;
   box-shadow: 0 30px 60px rgba(0,0,0,0.15);
   animation: fadeIn 1.5s ease;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.9rem;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
   color: #6d597a;
+  margin-bottom: 15px;
 }
 
 p {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: #5f5f5f;
+  margin-bottom: 20px;
 }
 
 button {
   margin: 12px 8px;
-  padding: 12px 26px;
-  border-radius: 25px;
+  padding: 12px 28px;
+  border-radius: 30px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
@@ -62,12 +64,18 @@ button {
 }
 
 .yes:hover {
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
 .no {
   background: #f1f1f1;
   color: #555;
+  font-weight: 500;
+}
+
+.no:hover {
+  background: #ffe0f0;
+  color: #d6336c;
 }
 
 .hidden {
@@ -80,9 +88,9 @@ button {
 
 @keyframes shake {
   0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
   100% { transform: translateX(0); }
 }
 
@@ -129,7 +137,7 @@ button {
   <p id="text">I have something soft & special to tell you 🌸</p>
 
   <button class="yes" onclick="nextStep()">Tell me 🤍</button>
-  <button class="no" id="noBtn" onmouseover="shakeNo()">Not now 🙈</button>
+  <button class="no" id="noBtn" onmouseover="teaseNo()">Not now 🙈</button>
 
   <div id="final" class="hidden">
     <h1>Will you be my Valentine? 💕</h1>
@@ -167,8 +175,12 @@ function nextStep() {
   }
 }
 
-function shakeNo() {
+function teaseNo() {
   const btn = document.getElementById("noBtn");
+  // Randomly move the "No" button to tease
+  btn.style.position = "absolute";
+  btn.style.top = Math.random() * 60 + 20 + "%";
+  btn.style.left = Math.random() * 60 + 20 + "%";
   btn.classList.add("shake");
   setTimeout(() => btn.classList.remove("shake"), 400);
 }
@@ -206,5 +218,3 @@ function fireworks() {
 
 </body>
 </html>
-
-
