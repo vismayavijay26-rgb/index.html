@@ -5,13 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hey My Choriyan 💖</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -25,35 +22,48 @@ body {
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px);
-  border-radius: 28px;
-  padding: 35px 28px;
-  width: 340px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 30px;
+  width: 360px;
   text-align: center;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-  animation: fadeIn 1.5s ease;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  animation: pop 1s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+img {
+  width: 140px;
+  margin-bottom: 10px;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.9rem;
   color: #6d597a;
 }
 
 p {
-  font-size: 1.05rem;
-  color: #5f5f5f;
+  color: #555;
 }
 
 button {
-  margin: 12px 8px;
-  padding: 12px 26px;
+  margin: 10px;
+  padding: 12px 25px;
   border-radius: 25px;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .yes {
@@ -61,116 +71,77 @@ button {
   color: #5a189a;
 }
 
-.yes:hover {
-  transform: scale(1.05);
-}
-
 .no {
-  background: #f1f1f1;
-  color: #555;
-  position: relative;
+  background: #eee;
+  color: #444;
+  position: absolute;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 .shake {
   animation: shake 0.4s;
 }
 
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(0); }
+  0% { transform: rotate(0); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0); }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
+/* CRAZY MODE */
+.crazy {
+  animation: crazy 0.15s infinite;
 }
 
-/* Floating Hearts */
+@keyframes crazy {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  50% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Hearts */
 .heart {
   position: absolute;
-  bottom: -20px;
   font-size: 22px;
-  animation: floatUp linear infinite;
+  bottom: -20px;
+  animation: float 6s linear infinite;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: translateY(-120vh); opacity: 0; }
-}
-
-/* Fireworks */
-.firework {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ffc8dd;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-  0% { transform: scale(0); opacity: 1; }
-  100% { transform: scale(18); opacity: 0; }
-}
-
-/* Tooltip-like message for No button */
-.no-msg {
-  position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffafcc;
-  color: #5a189a;
-  padding: 6px 10px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  pointer-events: none;
-}
-
-.no-msg.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-5px);
+@keyframes float {
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1>Hey My Choriyan 💖</h1>
-  <p id="text">I have something soft & special to tell you 🌸</p>
+<div class="card" id="card">
+  <img src="download (3).jpg" alt="cute guy">
 
-  <button class="yes" onclick="nextStep()">Tell me 🤍</button>
-  <button class="no" id="noBtn" onmouseover="shakeNo()">Not now 🙈
-    <span class="no-msg" id="noMsg">Why you click no? 😜</span>
-  </button>
+  <h1>Hey My Choriyan 💖</h1>
+  <p id="text">Enikk oru cheriya confession und 😌</p>
+
+  <button class="yes" onclick="next()">Tell me 🤍</button>
+  <button class="no" id="noBtn" onmouseover="runAway()">No 🙈</button>
 
   <div id="final" class="hidden">
-    <h1>Will you be my Valentine? 💕</h1>
-    <button class="yes" onclick="sayYes()">YES 💖</button>
+    <h1>Will you be my Valentine? 🥺👉👈</h1>
+    <button class="yes" onclick="yes()">YES 💖</button>
   </div>
 
   <div id="result" class="hidden">
-    <h1>You made my heart smile ✨</h1>
-    <p>This song is just for you 🎶</p>
+    <h1>AYYO YES AA?! 😭💖</h1>
+    <p>Ente heart gone case 😵‍💫</p>
 
-    <!-- Spotify Embed -->
     <iframe style="border-radius:12px"
       src="https://open.spotify.com/embed/track/4FeczSomVWVyU4FW7xDeAI"
       width="100%" height="152"
-      frameBorder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+      allow="autoplay; encrypted-media">
     </iframe>
   </div>
 </div>
@@ -178,72 +149,53 @@ button {
 <script>
 let step = 0;
 const noBtn = document.getElementById("noBtn");
-const noMsg = document.getElementById("noMsg");
+const card = document.getElementById("card");
 
-function nextStep() {
+function next() {
+  const text = document.getElementById("text");
+
   if (step === 0) {
-    document.getElementById("text").innerText = "You feel like comfort, calm & home 🌷";
+    text.innerText = "Nee chirikkumbo enikk brain hang aavum 😵‍💫";
     step++;
-  } else if (step === 1) {
-    document.getElementById("text").innerText = "And my heart dances around you 💫";
+  } 
+  else if (step === 1) {
+    text.innerText = "Nee illaatha day = very dull day 😔";
     step++;
-  } else {
+  } 
+  else {
     document.querySelector(".yes").style.display = "none";
-    document.querySelector(".no").style.display = "none";
+    noBtn.style.display = "none";
     document.getElementById("final").classList.remove("hidden");
   }
 }
 
-function shakeNo() {
-  noBtn.classList.add("shake");
-  showNoMessage();
-  setTimeout(() => {
-    noBtn.classList.remove("shake");
-    hideNoMessage();
-  }, 800);
+function runAway() {
+  noBtn.style.left = Math.random()*70 + "vw";
+  noBtn.style.top = Math.random()*70 + "vh";
+  card.classList.add("shake");
+
+  setTimeout(()=>card.classList.remove("shake"),300);
 }
 
-function showNoMessage() {
-  noMsg.classList.add("show");
-}
-
-function hideNoMessage() {
-  noMsg.classList.remove("show");
-}
-
-function sayYes() {
+function yes() {
   document.getElementById("final").classList.add("hidden");
   document.getElementById("result").classList.remove("hidden");
+  card.classList.add("crazy");
   hearts();
-  fireworks();
 }
 
 function hearts() {
-  for (let i = 0; i < 35; i++) {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerHTML = "💗";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.animationDuration = (6 + Math.random() * 4) + "s";
+  for(let i=0;i<40;i++){
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(4+Math.random()*3)+"s";
     document.body.appendChild(h);
-    setTimeout(() => h.remove(), 10000);
-  }
-}
-
-function fireworks() {
-  for (let i = 0; i < 15; i++) {
-    const f = document.createElement("div");
-    f.className = "firework";
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.top = Math.random() * 100 + "vh";
-    document.body.appendChild(f);
-    setTimeout(() => f.remove(), 1000);
+    setTimeout(()=>h.remove(),8000);
   }
 }
 </script>
 
 </body>
 </html>
-
-
-
